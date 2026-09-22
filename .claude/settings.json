@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/Program Files/Google/Chrome/Application/**)",
+      "PowerShell(npm install --no-audit --no-fund 2>&1)",
+      "PowerShell(npx tsc -p .; \"tsc exit: $LASTEXITCODE\"; npx bddgen; \"bddgen exit: $LASTEXITCODE\"; npx playwright test --list)",
+      "PowerShell(npm ls @playwright/test playwright-bdd playwright)",
+      "PowerShell(npm view playwright-bdd version)",
+      "PowerShell(npm view playwright-bdd peerDependencies)",
+      "PowerShell(npm install --no-audit --no-fund -D playwright-bdd@^9.2.1 2>$null | Select-Object -Last 2; npx bddgen; \"bddgen exit: $LASTEXITCODE\"; npx playwright test --list)",
+      "PowerShell(npx tsc -p .; \"tsc exit: $LASTEXITCODE\")"
+    ]
+  }
+}

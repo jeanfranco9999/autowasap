@@ -1,0 +1,21 @@
+{
+  "name": "automatizar-whatsapp",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Pruebas automatizadas del bot de pedidos en WhatsApp Web con escenarios Gherkin",
+  "scripts": {
+    "login": "tsx src/login.ts",
+    "test": "bddgen && playwright test",
+    "test:uno": "bddgen && playwright test --grep",
+    "report": "start \"\" test-results\\cucumber-report.html"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.55.0",
+    "@types/node": "^22.0.0",
+    "cucumber-html-formatter-21": "npm:@cucumber/html-formatter@21.3.1",
+    "dotenv": "^16.4.5",
+    "playwright-bdd": "^9.2.1",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0"
+  }
+}
