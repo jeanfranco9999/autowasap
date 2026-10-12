@@ -1,6 +1,6 @@
 import type { DataTable } from 'playwright-bdd';
 import { Given, Then, When } from './fixtures';
-import { normalizeText as normalize } from '../src/whatsapp';
+import { normalizeText as normalize, type WhatsAppPage } from '../src/whatsapp';
 
 /**
  * Fila que valida las imágenes de la respuesta: `[imagen]` pide al menos una,
@@ -70,22 +70,33 @@ When(/^usuario hace clic en el botón "([^"]+)"$/i, async ({ whatsapp }, label: 
 // ---------- Then: lo que responde el bot ----------
 
 /**
- * Valida a dónde lleva el botón de enlace que se acaba de pulsar. Si la URL del botón
- * es un enlace acortado, se sigue hasta su destino. El enlace no se abre.
+ * Valida a dónde lleva el botón de enlace que se acaba de pulsar: lo abre en una
+ * pestaña nueva, espera las redirecciones y compara la dirección final.
  */
 Then(/^el botón lleva a "([^"]+)"$/i, async ({ whatsapp }, esperado: string) => {
   const { shown, final } = await whatsapp.readLinkPopup();
   await whatsapp.closeOpenList();
   // Se compara sin los parámetros de seguimiento, que cambian en cada visita (?utm=, ?srsltid=).
   const sinParametros = (url: string) => url.split('?')[0];
+  // Un chat de WhatsApp se escribe de varias formas (wa.me/<número>, api.whatsapp.com/send?phone=…):
+  // en ese caso lo que identifica el destino es el número.
+  const numeroDeWhatsApp = (url: string) => {
+    if (!/wa\.me|whatsapp\.com/i.test(url)) return '';
+    return (url.match(/wa\.me\/(\d+)/i) ?? url.match(/[?&]phone=(\d+)/i) ?? ['', ''])[1];
+  };
+  const numeroEsperado = numeroDeWhatsApp(esperado);
   const ok =
     shown.includes(esperado) ||
     final.includes(esperado) ||
     sinParametros(final) === sinParametros(esperado) ||
-    sinParametros(shown) === sinParametros(esperado);
+    sinParametros(shown) === sinParametros(esperado) ||
+    (!!numeroEsperado && numeroEsperado === numeroDeWhatsApp(final));
 
   if (!ok) {
-    fallar(`EL BOTÓN LLEVA A OTRA PÁGINA.\n   Debía llevar a: ${esperado}\n   Y lleva a:      ${final}`);
+    whatsapp.problemas.push({
+      paso: `el botón lleva a "${esperado}"`,
+      detalle: `   EL BOTÓN LLEVA A OTRA PÁGINA.\n   Debía llevar a: ${esperado}\n   Y lleva a:      ${final}`,
+    });
   }
 });
 
@@ -106,9 +117,10 @@ Then(/^el botón abre el chat de WhatsApp de "([^"]+)"$/i, async ({ whatsapp, $t
     : normalize(name).includes(normalize(esperado));
 
   if (!ok) {
-    fallar(
-      `EL BOTÓN ABRE OTRO CHAT.\n   Debía abrir el chat de: ${esperado}\n   Y abrió el de: ${name} (${phone})`,
-    );
+    whatsapp.problemas.push({
+      paso: `el botón abre el chat de WhatsApp de "${esperado}"`,
+      detalle: `   EL BOTÓN ABRE OTRO CHAT.\n   Debía abrir el chat de: ${esperado}\n   Y abrió el de: ${name} (${phone})`,
+    });
   }
 });
 
@@ -142,7 +154,7 @@ Then('la lista muestra', async ({ whatsapp, $testInfo }, table: DataTable) => {
     contentType: 'text/plain',
   });
   await whatsapp.closeOpenList();
-  reportar(revisiones, 'la lista de opciones');
+  reportar(whatsapp, revisiones, 'la lista de opciones');
 });
 
 /**
@@ -223,7 +235,7 @@ Then('el bot responde', async ({ whatsapp, $testInfo }, table: DataTable) => {
   });
 
   // Se revisan todas las filas y se informan juntas todas las que no coinciden.
-  reportar(revisiones, `la respuesta a "${respuesta.trigger}"`);
+  reportar(whatsapp, revisiones, `la respuesta a "${respuesta.trigger}"`);
 });
 
 /**
@@ -251,12 +263,17 @@ function textoDeMas(revisiones: Revision[], lineas: string[]): Revision[] {
     }));
 }
 
-/** Si alguna fila no coincide, falla el paso enumerando todos los problemas. */
-function reportar(revisiones: Revision[], que: string): void {
+/**
+ * Anota los problemas encontrados. No corta el escenario: así los pasos siguientes
+ * (botones, listas, enlaces) también se ejecutan y todo se ve en una sola corrida.
+ */
+function reportar(whatsapp: WhatsAppPage, revisiones: Revision[], que: string): void {
   const errores = revisiones.filter((r) => !r.ok);
   if (!errores.length) return;
-  const detalle = errores.map((r, i) => `${i + 1}) ${r.problema}`).join('\n\n');
-  fallar(`${errores.length} de ${revisiones.length} revisiones fallaron en ${que}:\n\n${detalle}`);
+  whatsapp.problemas.push({
+    paso: que,
+    detalle: errores.map((r) => `   ${r.problema}`).join('\n\n'),
+  });
 }
 
 /** Texto completo de la respuesta, tal como se muestra en el reporte. */

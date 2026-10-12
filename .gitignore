@@ -8,3 +8,9 @@ playwright-report/
 cucumber-report/
 screenshots/
 reportes/
+
+# Los Excel de NLU no se publican
+features/*.xlsx
+
+# Reportes comprimidos para compartir
+*.zip

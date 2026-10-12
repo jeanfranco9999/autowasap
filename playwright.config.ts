@@ -14,7 +14,7 @@ export default defineConfig({
   // Un perfil de Chrome no puede abrirse dos veces a la vez: escenarios en secuencia.
   workers: 1,
   fullyParallel: false,
-  timeout: 5 * 60_000,
+  timeout: 12 * 60_000,
   expect: { timeout: 10_000 },
   reporter: [
     ['list'],

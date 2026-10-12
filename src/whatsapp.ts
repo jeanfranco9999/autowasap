@@ -60,6 +60,12 @@ export class WhatsAppPage {
   /** data-id del último mensaje enviado: la respuesta es lo que llega debajo de él. */
   private anchorId?: string;
   lastReply?: BotReply;
+  /**
+   * Problemas encontrados durante el escenario. No se falla en el momento para que
+   * los pasos siguientes (botones, listas, enlaces) también se ejecuten: el escenario
+   * falla al final con todos los problemas juntos.
+   */
+  readonly problemas: { paso: string; detalle: string }[] = [];
 
   constructor(
     private readonly page: Page,
@@ -80,6 +86,17 @@ export class WhatsAppPage {
 
     const useHere = this.page.locator(sel.useHereButton);
     const ready = composer.or(qr).or(invalidNumber);
+
+    // Tras días sin usarse, WhatsApp vuelve a descargar los mensajes antes de mostrar el chat.
+    const cargando = this.page.getByText(/cargando tus chats|loading your chats/i);
+    if (await cargando.first().isVisible().catch(() => false)) {
+      await cargando
+        .first()
+        .waitFor({ state: 'hidden', timeout: 10 * 60_000 })
+        .catch(() => {});
+      // Durante la carga se pierde la apertura del chat: se vuelve a pedir.
+      await this.page.goto(chatUrl);
+    }
 
     await ready.or(useHere).first().waitFor({ timeout: 90_000 });
     // "WhatsApp está abierto en otra ventana": tomar el control en esta pestaña.
@@ -122,6 +139,9 @@ export class WhatsAppPage {
    */
   async clickButton(label: string): Promise<void> {
     this.ensureChat();
+    // Los mensajes de ahora quedan marcados: lo que llegue después es la respuesta al clic.
+    this.seen = new Set((await this.readMessages()).map((m) => m.id));
+    this.anchorId = undefined;
     // Se marca el botón dentro de la página: su texto visible no coincide con el
     // texto del HTML, que incluye el nombre interno del ícono (ic-...).
     const marked = await this.page.evaluate(
@@ -159,7 +179,17 @@ export class WhatsAppPage {
     }
     await this.page.locator('[data-qa-click="1"]').click();
     await this.page.waitForTimeout(1_500);
-    await this.capture(`clic en ${label}`);
+
+    // Si el clic abrió una ventana (lista de opciones o aviso de enlace), se deja abierta
+    // para que la valide el paso siguiente.
+    if (await this.page.locator(sel.dialog).last().isVisible().catch(() => false)) {
+      await this.capture(`clic en ${label}`);
+      return;
+    }
+
+    // Si no, el botón envía su texto como mensaje: se espera la respuesta del bot.
+    this.anchorId = await this.waitForSentMessage(label, false);
+    await this.waitForReply(label);
   }
 
   /** Texto de la lista de opciones que está abierta (la que abre un botón del bot). */
@@ -185,18 +215,56 @@ export class WhatsAppPage {
       throw new Error('El botón no abrió ningún enlace.');
     }
     const shown = (await popup.innerText()).trim();
-    let final = shown;
-    try {
-      const response = await this.page.request.get(shown, { maxRedirects: 10, timeout: 20_000 });
-      final = response.url();
-    } catch {
-      // Si no se puede resolver (sin red, enlace caído), queda la URL mostrada.
-    }
+    const final = await this.abrirEnlace(shown);
+
     await this.testInfo.attach('Enlace al que lleva el botón', {
       body: shown === final ? shown : `${shown}\n→ ${final}`,
       contentType: 'text/plain',
     });
     return { shown, final };
+  }
+
+  /**
+   * Pulsa "Abrir" en el aviso: WhatsApp abre el enlace en una pestaña nueva.
+   * Espera a que termine de redirigir, guarda una captura de la web como evidencia,
+   * cierra esa pestaña y devuelve la dirección final. El chat queda como estaba.
+   */
+  private async abrirEnlace(urlDelAviso: string): Promise<string> {
+    const dialogo = this.page.locator(sel.dialog).last();
+    const abrir = dialogo
+      .getByRole('button')
+      .filter({ hasText: /abrir|continuar|open|aceptar/i })
+      .last();
+    const boton = (await abrir.count()) ? abrir : dialogo.getByRole('button').last();
+
+    let web;
+    try {
+      [web] = await Promise.all([
+        this.page.context().waitForEvent('page', { timeout: 30_000 }),
+        boton.click(),
+      ]);
+    } catch {
+      // No se abrió ninguna pestaña: queda la dirección que mostraba el aviso.
+      await this.capture('no abrió el enlace');
+      return urlDelAviso;
+    }
+
+    await web.waitForLoadState('domcontentloaded', { timeout: 30_000 }).catch(() => {});
+    // Algunas redirecciones ocurren después de cargar la primera página.
+    await web.waitForTimeout(3_000);
+    const final = web.url();
+
+    this.captureCount += 1;
+    const captura = await web.screenshot().catch(() => undefined);
+    if (captura) {
+      await this.testInfo.attach(`Captura ${this.captureCount}: web del botón`, {
+        body: captura,
+        contentType: 'image/png',
+      });
+    }
+    await web.close();
+    await this.page.bringToFront();
+    return final;
   }
 
   /**
@@ -284,12 +352,14 @@ export class WhatsAppPage {
   }
 
   /** Espera a que el mensaje enviado aparezca en el chat y devuelve su data-id. */
-  private async waitForSentMessage(text: string): Promise<string> {
+  private async waitForSentMessage(text: string, exacto = true): Promise<string> {
     const deadline = Date.now() + 15_000;
     while (Date.now() < deadline) {
-      const sent = (await this.readMessages())
-        .filter((m) => m.outgoing && !this.seen.has(m.id) && normalizeText(m.text) === normalizeText(text))
-        .pop();
+      const nuevos = (await this.readMessages()).filter((m) => m.outgoing && !this.seen.has(m.id));
+      // Al pulsar un botón, WhatsApp envía su texto, que puede diferir en algún ícono.
+      const sent = exacto
+        ? nuevos.filter((m) => normalizeText(m.text) === normalizeText(text)).pop()
+        : nuevos.pop();
       if (sent) return sent.id;
       await this.page.waitForTimeout(300);
     }

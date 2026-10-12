@@ -65,21 +65,32 @@ export default class CucumberHtmlReporter implements Reporter {
       fs.createWriteStream(outputFile),
     );
 
-    this.archivar(outputFile);
+    this.archivar(outputFile, envelopes);
   }
 
   /**
-   * Guarda una copia del reporte con la fecha y hora, porque cada ejecución
-   * reemplaza el reporte anterior.
+   * Guarda una copia del reporte con la bandera y la fecha, porque cada ejecución
+   * reemplaza el reporte anterior: reportes/reporte_oechsle_2026-10-12_12-24.html
    */
-  private archivar(outputFile: string): void {
+  private archivar(outputFile: string, envelopes: any[]): void {
     const ahora = new Date();
     const dos = (n: number) => String(n).padStart(2, '0');
     const sello =
       `${ahora.getFullYear()}-${dos(ahora.getMonth() + 1)}-${dos(ahora.getDate())}` +
       `_${dos(ahora.getHours())}-${dos(ahora.getMinutes())}`;
+
+    // La bandera sale del .feature que se ejecutó.
+    const banderas = [
+      ...new Set(
+        envelopes
+          .filter((e) => e?.gherkinDocument?.uri)
+          .map((e) => path.basename(e.gherkinDocument.uri).replace(/\.feature$/, '')),
+      ),
+    ];
+    const nombre = banderas.length ? `${banderas.join('-')}_` : '';
+
     const carpeta = 'reportes';
     fs.mkdirSync(carpeta, { recursive: true });
-    fs.copyFileSync(outputFile, path.join(carpeta, `reporte_${sello}.html`));
+    fs.copyFileSync(outputFile, path.join(carpeta, `reporte_${nombre}${sello}.html`));
   }
 }

@@ -1,0 +1,98 @@
+{"A":"Intencion","B":"NLU","C":"Figma"}
+{"A":"Me puedes ayudar a corregir mi DNI que coloque mal","B":"Cambio de datos","C":"https://www.figma.com/design/OkM3OAUzhebVohroJBvduR/Whatsapp-%7C-Dise%C3%B1o-de-Flujos-IR?node-id=8261-5645&t=SKkZXU59BrMAsK2k-0"}
+{"A":"Todo está bien.. lo que quiero es que rectifiquen mi número celular que lo pusieron errado","B":"Cambio de datos"}
+{"A":"Me equivoque en poner mi dni correcto en mi compra q puedo hacer","B":"Cambio de datos"}
+{"A":"Puse mal el dni","B":"Cambio de datos"}
+{"A":"Quiero agregar mi número de celular para que me puedan llamar al enviar mi pedido","B":"Cambio de datos"}
+{"A":"Me confundí mi dni","B":"Cambio de datos"}
+{"A":"No coloque bien mi dni","B":"Cambio de datos"}
+{"A":"Para actualizar mis datos","B":"Cambio de datos"}
+{"A":"Recibí mi pedido pero el celular se calienta mucho","B":"Como cambiar o devolver","C":"https://www.figma.com/design/OkM3OAUzhebVohroJBvduR/Whatsapp-%257C-Dise%25C3%25B1o-de-Flujos-IR?node-id=3572-11863&t=vab2oAofOtFJkXH0-0"}
+{"A":"Nesecito saber si hacen envío","B":"Costo y envio","C":"https://www.figma.com/design/OkM3OAUzhebVohroJBvduR/Whatsapp-%257C-Dise%25C3%25B1o-de-Flujos-IR?node-id=11399-16645&t=vab2oAofOtFJkXH0-0. Validar Links, estan en comentarios del figm"}
+{"A":"Deseo envío a domicilio","B":"Costo y envio"}
+{"A":"Me.podrisn enviar a mi domicilio","B":"Costo y envio"}
+{"A":"pueden indicar si llegan a Amazonas Bagua Imaza?","B":"Costo y envio"}
+{"A":"Condiciones y términos para envío a domicilio","B":"Costo y envio"}
+{"A":"Llega hasta acá el pedido","B":"Costo y envio"}
+{"A":"envian a provincia","B":"Costo y envio"}
+{"A":"Como puedo saber si llegará a casa le entrega","B":"Costo y envio"}
+{"A":"Una consulta","B":"FAQ","C":"https://www.figma.com/design/OkM3OAUzhebVohroJBvduR/Whatsapp-%257C-Dise%25C3%25B1o-de-Flujos-IR?node-id=11399-16786&t=vab2oAofOtFJkXH0-0"}
+{"A":"Quiero saber si","B":"FAQ"}
+{"A":"Si nesecito ayuda","B":"FAQ"}
+{"A":"pero no me queda claro","B":"FAQ"}
+{"A":"Otra consulta","B":"FAQ"}
+{"A":"Otra consulta","B":"FAQ"}
+{"A":"Quiero consultar","B":"FAQ"}
+{"A":"Quiero información","B":"FAQ"}
+{"A":"Necesito consultar la garantía de un producto","B":"Garantia","C":"Para cada intención validar respuesta: https://www.figma.com/design/OkM3OAUzhebVohroJBvduR/Whatsapp-%257C-Dise%25C3%25B1o-de-Flujos-IR?node-id=11399-16454&t=vab2oAofOtFJkXH0-0. Solo para la primera del bloque validar las opciones de la respuesta (Electro y Maquinas, Muebles y DecoHogar, Super Garantía )"}
+{"A":"Ya gestioné con LG visita pero cómo activo la garantía?","B":"Garantia"}
+{"A":"Quiero saber si mi equipo telefónico tiene garantía y esta registrado","B":"Garantia"}
+{"A":"Garantía","B":"Garantia"}
+{"A":"Quiero saber sobre la garantía de un producto que compre","B":"Garantia"}
+{"A":"Garantía de productos","B":"Garantia"}
+{"A":"Garantia","B":"Garantia"}
+{"A":"Como puedo pagar mi pedido","B":"Medios de pago","C":"https://www.figma.com/design/OkM3OAUzhebVohroJBvduR/Whatsapp-%257C-Dise%25C3%25B1o-de-Flujos-IR?node-id=11399-16728&t=vab2oAofOtFJkXH0-0"}
+{"A":"Quiero mas información del pago","B":"Medios de pago"}
+{"A":"Tengo dudas sobre el pago","B":"Medios de pago"}
+{"A":"Cómo puedo pagar con yape","B":"Medios de pago"}
+{"A":"Quiero saber como pagar","B":"Medios de pago"}
+{"A":"Quiero pagar con sip","B":"Medios de pago"}
+{"A":"Como pagar","B":"Medios de pago"}
+{"A":"Como pago","B":"Medios de pago"}
+{"A":"No llega el correo de aprobación","B":"Mis pedidos","C":"https://www.figma.com/design/OkM3OAUzhebVohroJBvduR/Whatsapp-%257C-Dise%25C3%25B1o-de-Flujos-IR?node-id=11399-16778&t=vab2oAofOtFJkXH0-0"}
+{"A":"Necesito que se me ayude con mi pedido no encuentro respuesta","B":"Mis pedidos"}
+{"A":"Quiero saber porque no me llega ningún mensaje a mi correo de Compras","B":"Mis pedidos"}
+{"A":"neceisto ayuda para saber de pedidos","B":"Mis pedidos"}
+{"A":"¡Hola! Hice un pedido en la web y no me llegó la confirmación a mi correo","B":"Mis pedidos"}
+{"A":"Necesito apoyo con mi pedido","B":"Mis pedidos"}
+{"A":"No me llega el mensaje de ese pedido","B":"Mis pedidos"}
+{"A":"Si necesito ayuda con mis pedidos","B":"Mis pedidos"}
+{"A":"Me refiero al cip para el pago por transferencia","B":"Pago efectivo","C":"https://www.figma.com/design/OkM3OAUzhebVohroJBvduR/Whatsapp-%257C-Dise%25C3%25B1o-de-Flujos-IR?node-id=11399-16772&t=vab2oAofOtFJkXH0-0"}
+{"A":"No recibo el codigo de pago safetypay a mi correo electrónico","B":"Pago efectivo"}
+{"A":"quiero el número CIP de pago","B":"Pago efectivo"}
+{"A":"No me llega el código de pago de safetypay","B":"Pago efectivo"}
+{"A":"no me llego el codigo de pago","B":"Pago efectivo"}
+{"A":"No recibo el codigo de pago de safetypay","B":"Pago efectivo"}
+{"A":"No me llega el CIP","B":"Pago efectivo"}
+{"A":"Como pago mi compra? No me aparece codigo ni nada","B":"Pago efectivo"}
+{"A":"Quiero saber cómo puedo pagarlo si seleccione la opción de pagar por transacción bancaria","B":"Pago en efectivo"}
+{"A":"quieoro inscribirme en oeshle","B":"Pasa a intencion no comprendida","C":"https://www.figma.com/design/YxUS1k4nk7E1y6bbTp8l47/Promart-%257C-WhatsApp?node-id=14125-18233&t=9NFlATTJcLzR50Se-0"}
+{"A":"Y me a llegado a mi correo ahora","B":"Pasa a intencion no comprendida"}
+{"A":"Como llenó el formulario","B":"Pasa a intencion no comprendida"}
+{"A":"Yo no solicité reembolso","B":"Pasa a intencion no comprendida"}
+{"A":"Buenas noches quisiera cambiar más cuotas de mi compra","B":"Pasa a intencion no comprendida"}
+{"A":"Una consulta","B":"Pasa a intencion no comprendida"}
+{"A":"Pedí un celular pero a cuotas sin interés es automático o tengo que llamar para verificar que sea sin intereses","B":"Pasa a intencion no comprendida"}
+{"A":"En poner mi DNI","B":"Pasa a intencion no comprendida"}
+{"A":"Todas las intenciones englobadas en esta intencion","B":"Persona autorizada","C":"https://www.figma.com/design/OkM3OAUzhebVohroJBvduR/Whatsapp-%257C-Dise%25C3%25B1o-de-Flujos-IR?node-id=11399-16436&t=vab2oAofOtFJkXH0-0"}
+{"A":"Pero no me llegó ningún QR a mi correo solo me aparece que está para recoger","B":"Persona autorizada"}
+{"A":"Condiciones para devolver un producto online debido a la talla","B":"Plazos","C":"https://www.figma.com/design/OkM3OAUzhebVohroJBvduR/Whatsapp-%257C-Dise%25C3%25B1o-de-Flujos-IR?node-id=1200-20936&t=vab2oAofOtFJkXH0-0"}
+{"A":"Buenas quisiera ayuda con una compra","B":"Productos y stock","C":"https://www.figma.com/design/OkM3OAUzhebVohroJBvduR/Whatsapp-%257C-Dise%25C3%25B1o-de-Flujos-IR?node-id=8261-7489&t=vab2oAofOtFJkXH0-0"}
+{"A":"ayuda para realizar un pedido","B":"Productos y stock"}
+{"A":"Necesito ayuda con los datos de un producto","B":"Productos y stock"}
+{"A":"Deseo pedir pero no se hacerlo ayudeme","B":"Productos y stock"}
+{"A":"Necesito ayuda para comprar online","B":"Productos y stock"}
+{"A":"Al ver la web dice que mi pedido y compra ya esta para recoger pero no me llego a mi correo-e el código QR para recogerlo","B":"QR - Persona autorizada","C":"https://www.figma.com/design/OkM3OAUzhebVohroJBvduR/Whatsapp-%257C-Dise%25C3%25B1o-de-Flujos-IR?node-id=11399-16436&t=vab2oAofOtFJkXH0-0"}
+{"A":"El QR de mi pedido sin no me llega a mi correo","B":"QR - Persona autorizada"}
+{"A":"Ya dice: LISTO PARA RECOGER solo que no me llega el correo-e con el código QR eso necesito si ya esta","B":"QR - Persona autorizada"}
+{"A":"No tengo el codigo QR","B":"QR - Persona autorizada"}
+{"A":"Tenia que recoger un producto el día de ayer pero aún no le llega el correo con el QR","B":"QR - Persona autorizada"}
+{"A":"No me llega a mi correo el Qr","B":"QR - Persona autorizada"}
+{"A":"no me llega el QR para recoger pedido","B":"QR - Persona autorizada"}
+{"A":"Me pide código QR no me llego al correo-e","B":"QR - Persona autorizada"}
+{"A":"Mi pedido realizado hoy fue cancelado y no veo mi reembolso. ¿Podrían enviarme el comprobante de reembolso?","B":"Reembolso","C":"https://www.figma.com/design/l3LCbVyPNMG53Nz4gwY7ZA/Oechsle-%257C-WhatsApp?node-id=12967-15182&t=BtYOjOdf56bnjnpU-0"}
+{"A":"¿Puedo ver el recibo del reembolso?","B":"Reembolso"}
+{"A":"Mi pedido realizado hoy fue cancelado y no veo mi reembolso. ¿Podrían enviarme el comprobante de reembolso?","B":"Reembolso"}
+{"A":"¿Puedo ver el recibo del reembolso?","B":"Reembolso"}
+{"A":"Dedo saber cómo puedo sacar una tarjeta SIP","B":"SIP","C":"https://www.figma.com/design/OkM3OAUzhebVohroJBvduR/Whatsapp-%257C-Dise%25C3%25B1o-de-Flujos-IR?node-id=11399-16669&t=vab2oAofOtFJkXH0-0"}
+{"A":"Tarjeta SIP","B":"SIP"}
+{"A":"Como obtengo una tarjeta","B":"Sip"}
+{"A":"Tengo una tarjeta de crédito esta bloqueada o esta activa ?","B":"Sip"}
+{"A":"Está vigente la opción 12 meses sin intereses con sip?","B":"Sip"}
+{"A":"pagando con al app de sip","B":"Sip"}
+{"A":"Deseo saber si cálifico para una tarjeta de crédito","B":"Sip"}
+{"A":"Es sobre referente a mis estados de cuenta","B":"Sip"}
+{"A":"Como me aseguro de que lo que dice pago 12meses sin interes es cierto?","B":"Sip"}
+{"A":"Quiero informacion sobre tarjeta sip","B":"Sip"}
+{"A":"Quiero ver mi boleta","B":"Comprobantes","C":"https://www.figma.com/design/OkM3OAUzhebVohroJBvduR/Whatsapp-%257C-Dise%25C3%25B1o-de-Flujos-IR?node-id=11399-16780&t=qzDAdqTJhyUrhorT-0"}
+{"A":"Quiero anular mi servicio","B":"Servicios","C":"https://www.figma.com/design/OkM3OAUzhebVohroJBvduR/Whatsapp-%257C-Dise%25C3%25B1o-de-Flujos-IR?node-id=11399-16783&t=qzDAdqTJhyUrhorT-0"}
